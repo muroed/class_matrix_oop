@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(s21_matrix_oop_source)
+project(nd_matrix_oop_source)
 
 if(CMAKE_SYSTEM_PROCESSOR MATCHES arm64)
   message("SYSTEM PROCESSOR MATCHES arm64")
@@ -19,10 +19,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Werror -Wextra ${CMAKE_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS_DEBUG "-std=c++17 -O0 -Wall -Werror -Wextra -g -fprofile-arcs -ftest-coverage ${CMAKE_CXX_FLAGS_DEBUG}")
  
-set(HEADER s21_matrix_oop.h)
-set(SOURCE s21_matrix_oop.cc)
+set(HEADER nd_matrix_oop.h)
+set(SOURCE nd_matrix_oop.cc)
   
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADER})
 
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "s21_matrix_oop")
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "nd_matrix_oop")
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")

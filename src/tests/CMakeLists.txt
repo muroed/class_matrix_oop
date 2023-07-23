@@ -37,5 +37,5 @@ endif ()
 
 add_executable(matrix_test Matrix_tests.cc)
 
-target_link_libraries(matrix_test s21_matrix_oop_source gtest gtest_main)
+target_link_libraries(matrix_test nd_matrix_oop_source gtest gtest_main)
 

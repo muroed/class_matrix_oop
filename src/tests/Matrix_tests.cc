@@ -1,37 +1,37 @@
 #include <gtest/gtest.h>
 
-#include "../source/s21_matrix_oop.h"
+#include "../source/nd_matrix_oop.h"
 
 TEST(test_class, basic_constructor) {
-  S21Matrix m;
+  ndMatrix m;
   EXPECT_EQ(m.get_cols(), 0);
   EXPECT_EQ(m.get_rows(), 0);
   // EXPECT_NULL(m.matrix_);
 }
 
 TEST(test_class, rc_constructor) {
-  S21Matrix m(34, 400);
+  ndMatrix m(34, 400);
   EXPECT_EQ(m.get_rows(), 34);
   EXPECT_EQ(m.get_cols(), 400);
 }
 
 TEST(test_class, operator_) {
-  S21Matrix m(34, 400);
+  ndMatrix m(34, 400);
   const double al = 4;
   m(3, 3) = al;
   EXPECT_EQ(m(3, 3), 4);
 }
 
-TEST(test_class, assert_one) { ASSERT_ANY_THROW(S21Matrix m(-1, -1)); }
+TEST(test_class, assert_one) { ASSERT_ANY_THROW(ndMatrix m(-1, -1)); }
 
 TEST(test_class, assert_two) {
-  S21Matrix m(34, 40);
+  ndMatrix m(34, 40);
   ASSERT_ANY_THROW(m.set_rows(-1));
   ASSERT_ANY_THROW(m.set_cols(-1));
 }
 
 TEST(test_class, RowsColsConstructorTest) {
-  S21Matrix m1(2, 2);
+  ndMatrix m1(2, 2);
   EXPECT_EQ(2, m1.get_cols());
   EXPECT_EQ(2, m1.get_rows());
   for (int i = 0; i < m1.get_rows(); ++i)
@@ -39,9 +39,9 @@ TEST(test_class, RowsColsConstructorTest) {
 }
 
 TEST(test_class, CopyConstructorTest) {
-  S21Matrix m1(2, 2);
+  ndMatrix m1(2, 2);
   m1(0, 1) = 2;
-  S21Matrix m2(m1);
+  ndMatrix m2(m1);
   EXPECT_EQ(2, m2.get_cols());
   EXPECT_EQ(2, m2.get_rows());
   for (int i = 0; i < m2.get_rows(); ++i)
@@ -53,7 +53,7 @@ TEST(test_class, CopyConstructorTest) {
 }
 
 TEST(test_class, DefaultConstructorTest) {
-  S21Matrix m1;
+  ndMatrix m1;
   EXPECT_EQ(0, m1.get_cols());
   EXPECT_EQ(0, m1.get_rows());
   for (int i = 0; i < m1.get_rows(); ++i)
@@ -61,8 +61,8 @@ TEST(test_class, DefaultConstructorTest) {
 }
 
 TEST(test_class, MoveConstructor) {
-  S21Matrix a(2, 2);
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix c(2, 2);
 
   a(0, 0) = 2;
   a(0, 1) = 4;
@@ -74,7 +74,7 @@ TEST(test_class, MoveConstructor) {
   c(1, 0) = 6;
   c(1, 1) = 8;
 
-  S21Matrix b(std::move(a));
+  ndMatrix b(std::move(a));
 
   EXPECT_TRUE(b.EqMatrix(c));
   EXPECT_EQ(a.get_rows(), 0);
@@ -82,7 +82,7 @@ TEST(test_class, MoveConstructor) {
 }
 
 TEST(test_class, ParenthesesOperatorTest) {
-  S21Matrix m1(2, 2);
+  ndMatrix m1(2, 2);
   m1(0, 0) = 10;
   for (int i = 0; i < m1.get_rows(); ++i)
     for (int j = 0; j < m1.get_cols(); ++j)
@@ -96,8 +96,8 @@ TEST(test_class, ParenthesesOperatorTest) {
 }
 
 TEST(test_class, set_rowsTest) {
-  S21Matrix m1(3, 3);
-  S21Matrix m2(3, 3);
+  ndMatrix m1(3, 3);
+  ndMatrix m2(3, 3);
   m1.set_rows(2);
   EXPECT_EQ(2, m1.get_rows());
   for (int i = 0; i < m1.get_rows(); ++i)
@@ -112,8 +112,8 @@ TEST(test_class, set_rowsTest) {
 }
 
 TEST(test_class, set_colsTest) {
-  S21Matrix m1(3, 3);
-  S21Matrix m2(3, 3);
+  ndMatrix m1(3, 3);
+  ndMatrix m2(3, 3);
   m1.set_cols(2);
   EXPECT_EQ(2, m1.get_cols());
 
@@ -124,8 +124,8 @@ TEST(test_class, set_colsTest) {
 }
 
 // TEST(test_class, constructor_throw_1) {
-//   S21Matrix m1;
-//   ASSERT_ANY_THROW(S21Matrix m2(std::move(m1)));
+//   ndMatrix m1;
+//   ASSERT_ANY_THROW(ndMatrix m2(std::move(m1)));
 //   // m1.set_cols(2);
 //   // EXPECT_EQ(2, m1.get_cols());
 
@@ -136,8 +136,8 @@ TEST(test_class, set_colsTest) {
 // }
 
 TEST(EqMatrix, EqTest) {
-  S21Matrix m1(2, 2);
-  S21Matrix m2(2, 2);
+  ndMatrix m1(2, 2);
+  ndMatrix m2(2, 2);
   m1(0, 0) = 2.4;
   m2(0, 0) = 2.4;
   m1(0, 1) = 4.8;
@@ -153,15 +153,15 @@ TEST(EqMatrix, EqTest) {
 }
 
 TEST(EqMatrix, EqTest_False) {
-  S21Matrix m1(2, 3);
-  S21Matrix m2(2, 2);
+  ndMatrix m1(2, 3);
+  ndMatrix m2(2, 2);
 
   EXPECT_FALSE(m1.EqMatrix(m2));
 }
 
 TEST(EqMatrix, EqTest2) {
-  S21Matrix matrix1{4, 5};
-  S21Matrix matrix2{4, 5};
+  ndMatrix matrix1{4, 5};
+  ndMatrix matrix2{4, 5};
 
   matrix1(0, 0) = 561.395;
   matrix1(0, 1) = 356.219;
@@ -217,8 +217,8 @@ TEST(EqMatrix, EqTest2) {
 }
 
 TEST(SumMatrix, AddTest) {
-  S21Matrix m1;
-  S21Matrix m2;
+  ndMatrix m1;
+  ndMatrix m2;
   m1.set_cols(6);
   m2.set_cols(6);
   m1.set_rows(6);
@@ -227,30 +227,30 @@ TEST(SumMatrix, AddTest) {
   m2(0, 1) = 12;
   m1.SumMatrix(m2);
   EXPECT_DOUBLE_EQ(22, m1(0, 1));
-  S21Matrix m3(10, 10);
+  ndMatrix m3(10, 10);
 
   ASSERT_ANY_THROW(m1.SumMatrix(m3));
 }
 
 TEST(SumMatrix, SumMatrix_throw) {
-  S21Matrix m1(2, 6);
-  S21Matrix m2;
+  ndMatrix m1(2, 6);
+  ndMatrix m2;
 
   ASSERT_ANY_THROW(m1.SumMatrix(m2));
 }
 
 TEST(SubMatrix, SubMatrix_throw) {
-  S21Matrix m1(2, 6);
-  S21Matrix m2;
-  S21Matrix m3(6, 2);
+  ndMatrix m1(2, 6);
+  ndMatrix m2;
+  ndMatrix m3(6, 2);
 
   ASSERT_ANY_THROW(m1.SubMatrix(m2));
   ASSERT_ANY_THROW(m1.SubMatrix(m3));
 }
 
 TEST(SubMatrix, DivTest) {
-  S21Matrix m1;
-  S21Matrix m2;
+  ndMatrix m1;
+  ndMatrix m2;
   m1.set_cols(6);
   m2.set_cols(6);
   m1.set_rows(6);
@@ -258,7 +258,7 @@ TEST(SubMatrix, DivTest) {
   m1(0, 1) = 10;
   m2(0, 1) = 12;
   m1.SubMatrix(m2);
-  S21Matrix m3(10, 10);
+  ndMatrix m3(10, 10);
   EXPECT_DOUBLE_EQ(-2, m1(0, 1));
 
   ASSERT_ANY_THROW(m1.SumMatrix(m3));
@@ -266,7 +266,7 @@ TEST(SubMatrix, DivTest) {
 
 TEST(MulNumber, MulNumberTest) {
   int number = 6;
-  S21Matrix m1;
+  ndMatrix m1;
   m1.set_cols(6);
   m1.set_rows(6);
   m1(0, 1) = 10;
@@ -276,19 +276,19 @@ TEST(MulNumber, MulNumberTest) {
 
 TEST(MulNumber, MulNumber_throw) {
   int number = 6;
-  S21Matrix m1;
+  ndMatrix m1;
   ASSERT_ANY_THROW(m1.MulNumber(number));
 }
 
 TEST(MulMatrix, MulMatrix_throw) {
-  S21Matrix m1;
-  S21Matrix m2;
+  ndMatrix m1;
+  ndMatrix m2;
   ASSERT_ANY_THROW(m1.MulMatrix(m2));
 }
 
 TEST(MulMatrix, MulMatrixTest) {
-  S21Matrix m1;
-  S21Matrix m2;
+  ndMatrix m1;
+  ndMatrix m2;
   m1.set_cols(6);
   m2.set_rows(6);
   m2.set_cols(5);
@@ -313,9 +313,9 @@ TEST(MulMatrix, MulMatrixTest) {
 }
 
 TEST(Transpose, TransposeOne) {
-  S21Matrix a(2, 2);
-  S21Matrix b;
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix b;
+  ndMatrix c(2, 2);
 
   a(0, 0) = 1;
   a(0, 1) = 2;
@@ -333,30 +333,30 @@ TEST(Transpose, TransposeOne) {
 }
 
 TEST(Transpose, Transpose_throw) {
-  S21Matrix a;
-  S21Matrix b;
+  ndMatrix a;
+  ndMatrix b;
 
   ASSERT_ANY_THROW(b = a.Transpose());
 }
 
 TEST(InverseMatrix, InverseMatrix_throw) {
-  S21Matrix a;
-  S21Matrix b;
+  ndMatrix a;
+  ndMatrix b;
 
   ASSERT_ANY_THROW(b = a.InverseMatrix());
 }
 
 TEST(CalcComplements, CalcComplements_throw) {
-  S21Matrix a;
-  S21Matrix b;
+  ndMatrix a;
+  ndMatrix b;
 
   ASSERT_ANY_THROW(b = a.CalcComplements());
 }
 
 TEST(Transpose, TransposeTwo) {
-  S21Matrix a(1, 1);
-  S21Matrix b(1, 1);
-  S21Matrix c(1, 1);
+  ndMatrix a(1, 1);
+  ndMatrix b(1, 1);
+  ndMatrix c(1, 1);
 
   a(0, 0) = 1;
 
@@ -368,9 +368,9 @@ TEST(Transpose, TransposeTwo) {
 }
 
 TEST(CalcComplements, CalcComplementsOne) {
-  S21Matrix a(2, 2);
-  S21Matrix b;
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix b;
+  ndMatrix c(2, 2);
 
   a(0, 0) = 1;
   a(0, 1) = 2;
@@ -391,9 +391,9 @@ TEST(CalcComplements, CalcComplementsOne) {
 }
 
 TEST(CalcComplements, CalcComplementsTwo) {
-  S21Matrix a(1, 1);
-  S21Matrix b(1, 1);
-  S21Matrix c(1, 1);
+  ndMatrix a(1, 1);
+  ndMatrix b(1, 1);
+  ndMatrix c(1, 1);
 
   a(0, 0) = 1;
 
@@ -405,13 +405,13 @@ TEST(CalcComplements, CalcComplementsTwo) {
 }
 
 TEST(CalcComplements, CalcComplementsThree) {
-  S21Matrix a(1, 2);
+  ndMatrix a(1, 2);
 
   EXPECT_ANY_THROW(a.CalcComplements());
 }
 
 TEST(Determinant, DeterminantOne) {
-  S21Matrix a(2, 2);
+  ndMatrix a(2, 2);
 
   a(0, 0) = 1;
   a(0, 1) = 2;
@@ -424,7 +424,7 @@ TEST(Determinant, DeterminantOne) {
 }
 
 TEST(Determinant, DeterminantTwo) {
-  S21Matrix a(3, 3);
+  ndMatrix a(3, 3);
 
   a(0, 0) = 1;
   a(0, 1) = 2;
@@ -442,7 +442,7 @@ TEST(Determinant, DeterminantTwo) {
 }
 
 TEST(Determinant, DeterminantThree) {
-  S21Matrix a(3, 3);
+  ndMatrix a(3, 3);
 
   a(0, 0) = 10;
   a(0, 1) = 2;
@@ -460,7 +460,7 @@ TEST(Determinant, DeterminantThree) {
 }
 
 TEST(Determinant, DeterminantFour) {
-  S21Matrix a(4, 4);
+  ndMatrix a(4, 4);
 
   a(0, 0) = 10;
   a(0, 1) = 2;
@@ -485,7 +485,7 @@ TEST(Determinant, DeterminantFour) {
 }
 
 TEST(Determinant, DeterminantFive) {
-  S21Matrix a(4, 4);
+  ndMatrix a(4, 4);
 
   a(0, 0) = 1;
   a(0, 1) = 2;
@@ -510,9 +510,9 @@ TEST(Determinant, DeterminantFive) {
 }
 
 TEST(InverseMatrix, InverseMatrixOne) {
-  S21Matrix a(2, 2);
-  S21Matrix b;
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix b;
+  ndMatrix c(2, 2);
 
   a(0, 0) = 1;
   a(0, 1) = 2;
@@ -529,8 +529,8 @@ TEST(InverseMatrix, InverseMatrixOne) {
 }
 
 TEST(InverseMatrix, InverseMatrixTwo) {
-  S21Matrix a(3, 3);
-  S21Matrix b(3, 3);
+  ndMatrix a(3, 3);
+  ndMatrix b(3, 3);
 
   a(0, 0) = 10;
   a(0, 1) = 2;
@@ -556,9 +556,9 @@ TEST(InverseMatrix, InverseMatrixTwo) {
 }
 
 TEST(InverseMatrix, InverseMatrixThree) {
-  S21Matrix a(1, 1);
-  S21Matrix b(1, 1);
-  S21Matrix c(1, 1);
+  ndMatrix a(1, 1);
+  ndMatrix b(1, 1);
+  ndMatrix c(1, 1);
 
   a(0, 0) = 10;
 
@@ -570,9 +570,9 @@ TEST(InverseMatrix, InverseMatrixThree) {
 }
 
 TEST(InverseMatrix, InverseMatrixThrow) {
-  S21Matrix a(3, 3);
-  S21Matrix b(3, 3);
-  S21Matrix c(3, 3);
+  ndMatrix a(3, 3);
+  ndMatrix b(3, 3);
+  ndMatrix c(3, 3);
 
   a(0, 0) = 1;
   a(0, 1) = 2;
@@ -588,10 +588,10 @@ TEST(InverseMatrix, InverseMatrixThrow) {
 }
 
 TEST(SumMatrix, test1) {
-  S21Matrix a(2, 2);
-  S21Matrix b(2, 2);
-  S21Matrix c(2, 2);
-  S21Matrix d;
+  ndMatrix a(2, 2);
+  ndMatrix b(2, 2);
+  ndMatrix c(2, 2);
+  ndMatrix d;
 
   a(0, 0) = 1;
   a(0, 1) = 2;
@@ -614,10 +614,10 @@ TEST(SumMatrix, test1) {
 }
 
 TEST(SubMatrix, test2) {
-  S21Matrix a(2, 2);
-  S21Matrix b(2, 2);
-  S21Matrix c(2, 2);
-  S21Matrix d;
+  ndMatrix a(2, 2);
+  ndMatrix b(2, 2);
+  ndMatrix c(2, 2);
+  ndMatrix d;
 
   a(0, 0) = 2;
   a(0, 1) = 4;
@@ -640,10 +640,10 @@ TEST(SubMatrix, test2) {
 }
 
 TEST(MulMatrix, test3) {
-  S21Matrix a(2, 2);
-  S21Matrix b(2, 2);
-  S21Matrix c(2, 2);
-  S21Matrix d;
+  ndMatrix a(2, 2);
+  ndMatrix b(2, 2);
+  ndMatrix c(2, 2);
+  ndMatrix d;
 
   a(0, 0) = 2;
   a(0, 1) = 4;
@@ -666,9 +666,9 @@ TEST(MulMatrix, test3) {
 }
 
 TEST(MulNumber, test4) {
-  S21Matrix a(2, 2);
-  S21Matrix b;
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix b;
+  ndMatrix c(2, 2);
 
   a(0, 0) = 2;
   a(0, 1) = 4;
@@ -689,8 +689,8 @@ TEST(MulNumber, test4) {
 }
 
 TEST(EqMatrix, test5) {
-  S21Matrix a(2, 2);
-  S21Matrix b(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix b(2, 2);
 
   a(0, 0) = 2;
   a(0, 1) = 4;
@@ -706,9 +706,9 @@ TEST(EqMatrix, test5) {
 }
 //
 TEST(SumMatrix, test6) {
-  S21Matrix a(2, 2);
-  S21Matrix b(2, 2);
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix b(2, 2);
+  ndMatrix c(2, 2);
 
   a(0, 0) = 2;
   a(0, 1) = 4;
@@ -731,9 +731,9 @@ TEST(SumMatrix, test6) {
 }
 
 TEST(SubMatrix, test7) {
-  S21Matrix a(2, 2);
-  S21Matrix b(2, 2);
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix b(2, 2);
+  ndMatrix c(2, 2);
 
   a(0, 0) = 2;
   a(0, 1) = 4;
@@ -756,9 +756,9 @@ TEST(SubMatrix, test7) {
 }
 
 TEST(MulMatrix, test8) {
-  S21Matrix a(2, 2);
-  S21Matrix b(2, 2);
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix b(2, 2);
+  ndMatrix c(2, 2);
 
   a(0, 0) = 2;
   a(0, 1) = 4;
@@ -781,8 +781,8 @@ TEST(MulMatrix, test8) {
 }
 
 TEST(MulNumber, test9) {
-  S21Matrix a(2, 2);
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix c(2, 2);
 
   a(0, 0) = 2;
   a(0, 1) = 6;
@@ -800,8 +800,8 @@ TEST(MulNumber, test9) {
 }
 
 TEST(Equal, test10) {
-  S21Matrix a(2, 2);
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix c(2, 2);
 
   a(0, 0) = 2;
   a(0, 1) = 4;
@@ -814,9 +814,9 @@ TEST(Equal, test10) {
 }
 
 TEST(MulNumber, test11) {
-  S21Matrix a(2, 2);
-  S21Matrix b;
-  S21Matrix c(2, 2);
+  ndMatrix a(2, 2);
+  ndMatrix b;
+  ndMatrix c(2, 2);
 
   a(0, 0) = 2;
   a(0, 1) = 4;
@@ -834,7 +834,7 @@ TEST(MulNumber, test11) {
 }
 
 TEST(Determinant, DeterminantSix) {
-  S21Matrix matrix1{5, 5};
+  ndMatrix matrix1{5, 5};
 
   matrix1(0, 0) = 561.395;
   matrix1(0, 1) = 356.219;
@@ -870,12 +870,12 @@ TEST(Determinant, DeterminantSix) {
   EXPECT_NEAR(det, 0, 0.02);
 }
 
-void randm(S21Matrix &m) {
+void randm(ndMatrix &m) {
   for (int i = 0; i < m.get_rows(); i++)
     for (int j = 0; j < m.get_cols(); j++) m(i, j) = rand() % 10;
 }
 
-void printm(S21Matrix &m) {
+void printm(ndMatrix &m) {
   for (int i = 0; i < m.get_rows(); i++) {
     for (int j = 0; j < m.get_cols(); j++) std::cout << m(i, j) << " ";
     std::cout << std::endl;
@@ -883,7 +883,7 @@ void printm(S21Matrix &m) {
 }
 
 TEST(EqMatrix, EqMatrix_1) {
-  S21Matrix josky, flex;
+  ndMatrix josky, flex;
   for (int i = 0; i < josky.get_rows(); i++) {
     for (int j = 0; j < josky.get_cols(); j++) {
       josky(i, j) = 1;
@@ -894,30 +894,30 @@ TEST(EqMatrix, EqMatrix_1) {
 }
 
 TEST(EqMatrix, EqMatrix_2) {
-  S21Matrix josky(3, 3), flex(3, 3);
+  ndMatrix josky(3, 3), flex(3, 3);
   josky(2, 2) = 1;
   EXPECT_FALSE(josky.EqMatrix(flex));
 }
 
 TEST(SumMatrix, SumMatrix_1) {
-  S21Matrix josky(2, 2);
+  ndMatrix josky(2, 2);
   josky(0, 0) = 2;
   josky(0, 1) = 4;
   josky(1, 0) = 6;
   josky(1, 1) = 8;
-  S21Matrix flex = josky * 2;
+  ndMatrix flex = josky * 2;
   josky.SumMatrix(josky);
   EXPECT_TRUE(josky.EqMatrix(flex));
 }
 
 TEST(SumMatrix, SumMatrix_2) {
-  S21Matrix josky(2, 3), flex(2, 2);
+  ndMatrix josky(2, 3), flex(2, 2);
 
   EXPECT_THROW(josky.SumMatrix(flex);, std::logic_error);
 }
 
 TEST(SubMatrix, SubMatrix_1) {
-  S21Matrix josky(2, 2), flex(2, 2);
+  ndMatrix josky(2, 2), flex(2, 2);
   josky(0, 0) = 2;
   josky(0, 1) = 4;
   josky(1, 0) = 6;
@@ -927,7 +927,7 @@ TEST(SubMatrix, SubMatrix_1) {
 }
 
 TEST(SubMatrix, SubMatrix_2) {
-  S21Matrix josky(2, 2), flex(2, 2);
+  ndMatrix josky(2, 2), flex(2, 2);
   josky(0, 0) = 2;
   josky(0, 1) = 4;
   josky(1, 0) = 6;
@@ -938,7 +938,7 @@ TEST(SubMatrix, SubMatrix_2) {
 }
 
 TEST(MulNumber, MulNumber_1) {
-  S21Matrix josky(2, 2), flex(2, 2);
+  ndMatrix josky(2, 2), flex(2, 2);
   josky(0, 0) = 2;
   josky(0, 1) = 4;
   josky(1, 0) = 6;
@@ -950,7 +950,7 @@ TEST(MulNumber, MulNumber_1) {
 }
 
 TEST(MulNumber, MulNumber_2) {
-  S21Matrix josky(2, 2), flex(2, 2);
+  ndMatrix josky(2, 2), flex(2, 2);
   josky(0, 0) = 2;
   josky(0, 1) = 4;
   josky(1, 0) = 6;
@@ -960,7 +960,7 @@ TEST(MulNumber, MulNumber_2) {
 }
 
 TEST(MulMatrix, MulMatrix_1) {
-  S21Matrix josky(2, 3), flex(3, 2);
+  ndMatrix josky(2, 3), flex(3, 2);
   double count = 1;
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 3; j++) {
@@ -970,7 +970,7 @@ TEST(MulMatrix, MulMatrix_1) {
     }
   }
   josky.MulMatrix(flex);
-  S21Matrix res(2, 2);
+  ndMatrix res(2, 2);
   res(0, 0) = 14;
   res(0, 1) = 32;
   res(1, 0) = 32;
@@ -979,7 +979,7 @@ TEST(MulMatrix, MulMatrix_1) {
 }
 
 TEST(MulMatrix, MulMatrix_2) {
-  S21Matrix josky(2, 3), flex(4, 2);
+  ndMatrix josky(2, 3), flex(4, 2);
   double count = 1;
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 3; j++) {
@@ -992,7 +992,7 @@ TEST(MulMatrix, MulMatrix_2) {
 }
 
 TEST(Transpose, Transpose_1) {
-  S21Matrix josky(2, 3), flex(3, 2);
+  ndMatrix josky(2, 3), flex(3, 2);
   double count = 1;
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 3; j++) {
@@ -1006,7 +1006,7 @@ TEST(Transpose, Transpose_1) {
 }
 
 TEST(Transpose, Transpose_2) {
-  S21Matrix josky(2, 3), flex(3, 2);
+  ndMatrix josky(2, 3), flex(3, 2);
   double count = 1;
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 3; j++) {
@@ -1020,7 +1020,7 @@ TEST(Transpose, Transpose_2) {
 }
 
 TEST(CalcComplements, CalcComplements_1) {
-  S21Matrix josky(2, 2), flex(2, 2);
+  ndMatrix josky(2, 2), flex(2, 2);
   int count = 1;
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 2; j++) {
@@ -1037,7 +1037,7 @@ TEST(CalcComplements, CalcComplements_1) {
 }
 
 TEST(Determinant, Determinant_1) {
-  S21Matrix josky(3, 3);
+  ndMatrix josky(3, 3);
   int count = 1;
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
@@ -1049,7 +1049,7 @@ TEST(Determinant, Determinant_1) {
 }
 
 TEST(Determinant, Determinant_2) {
-  S21Matrix josky(3, 3);
+  ndMatrix josky(3, 3);
   int count = 0;
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
@@ -1062,7 +1062,7 @@ TEST(Determinant, Determinant_2) {
 }
 
 TEST(InverseMatrix, Inverse_1) {
-  S21Matrix josky(2, 2), flex(2, 2);
+  ndMatrix josky(2, 2), flex(2, 2);
   int count = 1;
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 2; j++) {
@@ -1079,7 +1079,7 @@ TEST(InverseMatrix, Inverse_1) {
 }
 
 TEST(InverseMatrix, Inverse_2) {
-  S21Matrix josky(2, 2), flex(2, 2);
+  ndMatrix josky(2, 2), flex(2, 2);
   josky(0, 0) = 1;
   josky(0, 1) = 1;
   josky(1, 0) = 3;
@@ -1093,7 +1093,7 @@ TEST(InverseMatrix, Inverse_2) {
 }
 
 TEST(test_class, get_t1) {
-  S21Matrix m1(2, 2);
+  ndMatrix m1(2, 2);
   m1(1, 1) = 123.456;
   EXPECT_EQ(m1.get_cols(), 2);
   EXPECT_EQ(m1.get_rows(), 2);
@@ -1101,7 +1101,7 @@ TEST(test_class, get_t1) {
 }
 
 TEST(test_class, set_t1) {
-  S21Matrix m(2, 2);
+  ndMatrix m(2, 2);
   m(1, 1) = 123.456;
   m.set_cols(3);
   m(1, 2) = 999.999;
@@ -1111,7 +1111,7 @@ TEST(test_class, set_t1) {
 }
 
 TEST(test_class, set_t2) {
-  S21Matrix m1(2, 2);
+  ndMatrix m1(2, 2);
   m1(1, 0) = 123.456;
   m1.set_rows(3);
   m1(2, 0) = m1(1, 0);
@@ -1121,19 +1121,19 @@ TEST(test_class, set_t2) {
 }
 
 TEST(test_class, constructor_t1) {
-  S21Matrix m1;
+  ndMatrix m1;
   EXPECT_EQ(m1.get_cols(), 0);
   EXPECT_EQ(m1.get_rows(), 0);
 
-  S21Matrix m2(5, 5);
+  ndMatrix m2(5, 5);
   m2(1, 1) = 123.456;
   EXPECT_EQ(m2.get_cols(), 5);
   EXPECT_EQ(m2.get_rows(), 5);
 
-  S21Matrix m3(m2);
+  ndMatrix m3(m2);
   EXPECT_EQ(m2 == m3, true);
 
-  S21Matrix m4(std::move(m3));
+  ndMatrix m4(std::move(m3));
   EXPECT_EQ(m3.get_cols(), 0);
   EXPECT_EQ(m3.get_rows(), 0);
   EXPECT_EQ(m4.get_rows(), 5);
@@ -1142,15 +1142,15 @@ TEST(test_class, constructor_t1) {
 }
 
 TEST(test_class, eq) {
-  S21Matrix m1(123, 123);
-  S21Matrix m2(m1);
+  ndMatrix m1(123, 123);
+  ndMatrix m2(m1);
 
   EXPECT_EQ(m1.EqMatrix(m2), true);
 }
 
 TEST(SumMatrix, summat) {
-  S21Matrix m1(3, 3);
-  S21Matrix m2(3, 3);
+  ndMatrix m1(3, 3);
+  ndMatrix m2(3, 3);
 
   m1(0, 0) = 1;
   m1(0, 2) = 2;
@@ -1164,8 +1164,8 @@ TEST(SumMatrix, summat) {
 }
 
 TEST(SubMatrix, submat) {
-  S21Matrix m1(3, 3);
-  S21Matrix m2(3, 3);
+  ndMatrix m1(3, 3);
+  ndMatrix m2(3, 3);
 
   m1(0, 0) = 1;
   m1(0, 2) = 2;
@@ -1179,7 +1179,7 @@ TEST(SubMatrix, submat) {
 }
 
 TEST(MulNumber, mulnum) {
-  S21Matrix m2(3, 3);
+  ndMatrix m2(3, 3);
 
   m2(0, 0) = 1.3;
   m2(0, 2) = 2.1;
@@ -1193,8 +1193,8 @@ TEST(MulNumber, mulnum) {
 }
 
 TEST(MulMatrix, mulmat) {
-  S21Matrix m1(2, 1);
-  S21Matrix m2(1, 2);
+  ndMatrix m1(2, 1);
+  ndMatrix m2(1, 2);
 
   m1(0, 0) = 32;
   m1(1, 0) = 12;
@@ -1212,8 +1212,8 @@ TEST(Transpose, transpose) {
   int rows = 2;
   int cols = 3;
 
-  S21Matrix m(rows, cols);
-  S21Matrix res(cols, rows);
+  ndMatrix m(rows, cols);
+  ndMatrix res(cols, rows);
   int c = 1;
   for (int i = 0; i < rows; i++) {
     for (int j = 0; j < cols; j++) {
@@ -1229,7 +1229,7 @@ TEST(Transpose, transpose) {
 }
 
 TEST(func7, calccal) {
-  S21Matrix m(3, 12);
+  ndMatrix m(3, 12);
   EXPECT_ANY_THROW(m.CalcComplements());
 }
 
@@ -1237,8 +1237,8 @@ TEST(CalcComplements, calcalc) {
   int rows = 3;
   int cols = 3;
 
-  S21Matrix given(rows, cols);
-  S21Matrix expected(rows, cols);
+  ndMatrix given(rows, cols);
+  ndMatrix expected(rows, cols);
 
   given(0, 0) = 1.0;
   given(0, 1) = 2.0;
@@ -1260,13 +1260,13 @@ TEST(CalcComplements, calcalc) {
   expected(2, 1) = -2.0;
   expected(2, 2) = 4.0;
 
-  S21Matrix res = given.CalcComplements();
+  ndMatrix res = given.CalcComplements();
 
   ASSERT_TRUE(res == expected);
 }
 
 TEST(Determinant, det) {
-  S21Matrix m(5, 5);
+  ndMatrix m(5, 5);
 
   for (uint32_t i = 0; i < 5; i++)
     for (uint32_t j = 0; j < 5; j++) m(i, j) = j;
@@ -1276,7 +1276,7 @@ TEST(Determinant, det) {
 
 TEST(Determinant, det1) {
   int size = 5;
-  S21Matrix m(size, size);
+  ndMatrix m(size, size);
 
   m(0, 1) = 6;
   m(0, 2) = -2;
@@ -1301,7 +1301,7 @@ TEST(Determinant, det1) {
 
 TEST(Determinant, det2) {
   int size = 3;
-  S21Matrix m(size, size);
+  ndMatrix m(size, size);
 
   m(0, 0) = 2;
   m(0, 1) = 3;
@@ -1319,8 +1319,8 @@ TEST(Determinant, det2) {
 
 TEST(InverseMatrix, inverse) {
   int size = 3;
-  S21Matrix given(size, size);
-  S21Matrix expected(size, size);
+  ndMatrix given(size, size);
+  ndMatrix expected(size, size);
 
   expected(0, 0) = 44300.0 / 367429.0;
   expected(0, 1) = -236300.0 / 367429.0;
@@ -1347,8 +1347,8 @@ TEST(InverseMatrix, inverse) {
 
 TEST(InverseMatrix, iverse1) {
   int size = 3;
-  S21Matrix given(size, size);
-  S21Matrix expected(size, size);
+  ndMatrix given(size, size);
+  ndMatrix expected(size, size);
   expected(0, 0) = 1.0;
   expected(0, 1) = -1.0;
   expected(0, 2) = 1.0;
@@ -1372,21 +1372,21 @@ TEST(InverseMatrix, iverse1) {
 }
 
 TEST(test_class, first) {
-  S21Matrix m;
+  ndMatrix m;
   EXPECT_EQ(m.get_cols(), 0);
   EXPECT_EQ(m.get_rows(), 0);
 }
 
 TEST(test_class, second) {
-  S21Matrix m(11, 11);
+  ndMatrix m(11, 11);
   EXPECT_EQ(m.get_cols(), 11);
   EXPECT_EQ(m.get_rows(), 11);
   EXPECT_EQ(m(10, 10), 0);
 }
 
 TEST(test_class, mul) {
-  S21Matrix m1(3, 3);
-  S21Matrix m2(3, 3);
+  ndMatrix m1(3, 3);
+  ndMatrix m2(3, 3);
 
   for (int i = 0; i < m1.get_rows(); ++i)
     for (int j = 0; j < m1.get_cols(); ++j) {
@@ -1406,7 +1406,7 @@ TEST(test_class, mul) {
       else
         EXPECT_DOUBLE_EQ(34 + 19 * i, m1(i, j));
 
-  S21Matrix m3(3, 1);
+  ndMatrix m3(3, 1);
   ASSERT_ANY_THROW(m3.MulMatrix(m2));
 
   for (int i = 0; i < m3.get_rows(); ++i) m3(i, 0) = 2;
@@ -1418,18 +1418,18 @@ TEST(test_class, mul) {
 }
 
 TEST(test_class, third) {
-  S21Matrix m1(123, 123);
+  ndMatrix m1(123, 123);
 
-  S21Matrix m2(m1);
+  ndMatrix m2(m1);
 
   EXPECT_EQ(m1.get_cols(), m2.get_cols());
   EXPECT_EQ(m1.get_rows(), m2.get_rows());
 }
 
 TEST(test_class, fourth) {
-  S21Matrix m1(123, 123);
+  ndMatrix m1(123, 123);
 
-  S21Matrix m2(std::move(m1));
+  ndMatrix m2(std::move(m1));
 
   EXPECT_EQ(m1.get_cols(), 0);
   EXPECT_EQ(m1.get_rows(), 0);
@@ -1440,8 +1440,8 @@ TEST(test_class, fourth) {
 TEST(leaks, gg) {
   int rows = 3;
   int cols = 3;
-  S21Matrix given(rows, cols);
-  S21Matrix expected(rows, cols);
+  ndMatrix given(rows, cols);
+  ndMatrix expected(rows, cols);
 
   given(0, 0) = 1.0;
   given(0, 1) = 2.0;
@@ -1471,30 +1471,30 @@ TEST(leaks, gg) {
   expected.set_cols(2);
   expected.set_rows(2);
 
-  S21Matrix oper_Sum = given + expected;
-  S21Matrix oper_Sub = given - expected;
-  S21Matrix oper_MulNM = 10 * given;
-  S21Matrix oper_MulMN = given * 10;
-  S21Matrix oper_MulM = given * expected;
-  S21Matrix Sum(2, 2);
+  ndMatrix oper_Sum = given + expected;
+  ndMatrix oper_Sub = given - expected;
+  ndMatrix oper_MulNM = 10 * given;
+  ndMatrix oper_MulMN = given * 10;
+  ndMatrix oper_MulM = given * expected;
+  ndMatrix Sum(2, 2);
   Sum += given;
-  S21Matrix Sub(2, 2);
+  ndMatrix Sub(2, 2);
   Sub -= given;
-  S21Matrix MulN(2, 2);
+  ndMatrix MulN(2, 2);
   MulN *= 10;
-  S21Matrix MulM(2, 2);
+  ndMatrix MulM(2, 2);
   MulM *= given;
-  S21Matrix func_sum(2, 2);
+  ndMatrix func_sum(2, 2);
   func_sum.SumMatrix(given);
-  S21Matrix func_sub(2, 2);
+  ndMatrix func_sub(2, 2);
   func_sub.SubMatrix(given);
-  S21Matrix func_muln(2, 2);
+  ndMatrix func_muln(2, 2);
   func_muln.MulNumber(10);
-  S21Matrix func_mulm(2, 2);
+  ndMatrix func_mulm(2, 2);
   func_mulm.MulMatrix(given);
-  S21Matrix func_trans(2, 2);
+  ndMatrix func_trans(2, 2);
   func_trans = given.Transpose();
-  S21Matrix func_inverse(2, 2);
+  ndMatrix func_inverse(2, 2);
   func_inverse = given.InverseMatrix();
 }
 

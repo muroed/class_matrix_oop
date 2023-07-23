@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(s21_matrix_oop)
+project(nd_matrix_oop)
 
 set(CMAKE_CXX_STANDARD 17)
 

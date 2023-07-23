@@ -13,11 +13,11 @@ COMPILER+=-DCMAKE_CXX_COMPILER=/Library/Developer/CommandLineTools/usr/bin/g++
 	endif
 endif
 
-all: s21_matrix_oop.a
+all: nd_matrix_oop.a
 
-s21_matrix_oop.a:
-	cmake -B./build -S. $(COMPILER) && cd build && make s21_matrix_oop_source
-	cp -f ./build/source/s21_matrix_oop.a ./
+nd_matrix_oop.a:
+	cmake -B./build -S. $(COMPILER) && cd build && make nd_matrix_oop_source
+	cp -f ./build/source/nd_matrix_oop.a ./
 
 test:
 	cmake -B./build -S. $(COMPILER) -DCMAKE_BUILD_TYPE=Build
@@ -28,11 +28,11 @@ test:
 
 gcov_report:
 	cmake -DCMAKE_BUILD_TYPE=Debug $(COMPILER) -B./build 
-	cd build && make && make s21_matrix_oop_coverage
+	cd build && make && make nd_matrix_oop_coverage
 	open build/coverage/index.html
 
 clean:
-	rm -f ./s21_matrix_oop.a ./matrix_test
+	rm -f ./nd_matrix_oop.a ./matrix_test
 	rm -rf build/
 	
 style:
